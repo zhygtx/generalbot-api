@@ -1,7 +1,6 @@
 package com.github.zhygtx.service;
 
 import com.github.zhygtx.pojo.PluginData;
-import com.github.zhygtx.pojo.SQL;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +23,6 @@ public interface SQLService {
 
     int delete(Integer id);
 
-    int delete(SQL sql);
-
     int delete(String index);
 
     int delete(List<String> index);
@@ -41,6 +38,4 @@ public interface SQLService {
     PluginData select(Integer id);
 
     List<PluginData> select(String index);
-
-    List<PluginData> select(SQL sql);
 }
