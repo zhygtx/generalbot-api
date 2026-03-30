@@ -14,7 +14,7 @@ public class PluginData {
     /**
      * 数据ID（UUID）
      */
-    private String id;
+    private Integer id;
 
     /**
      * 用户ID
