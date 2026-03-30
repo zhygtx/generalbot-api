@@ -14,7 +14,11 @@ public interface SQLService {
 
     int insert(List<String> data);
 
+    int insert(String index,List<String> data);
+
     int insert(Map<String, String> data);
+
+    int insertByIndexMap(Map<String, List<String>> data);
 
     int delete();
 
