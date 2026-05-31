@@ -3,16 +3,16 @@ package com.github.zhygtx.annotation;
 import java.lang.annotation.*;
 
 /**
- * 插件参数注解
- * 用于标记插件服务类方法中的参数
+ * 方法类注解
+ * 用于标记插件中的方法类
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface PluginParam {
+public @interface MethodClass {
     
     /**
-     * 参数描述
+     * 方法类描述
      */
     String description() default "";
 }

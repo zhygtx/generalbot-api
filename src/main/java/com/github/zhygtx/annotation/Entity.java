@@ -3,16 +3,16 @@ package com.github.zhygtx.annotation;
 import java.lang.annotation.*;
 
 /**
- * 插件属性注解
- * 用于标记插件实体类中的属性
+ * 实体类注解
+ * 用于标记插件中的实体类
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface PluginAttribute {
+public @interface Entity {
     
     /**
-     * 属性描述
+     * 实体类描述
      */
     String description() default "";
 }

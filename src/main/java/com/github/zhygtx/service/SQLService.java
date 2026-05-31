@@ -1,41 +1,65 @@
 package com.github.zhygtx.service;
 
+import com.github.zhygtx.annotation.Method;
+import com.github.zhygtx.annotation.MethodClass;
+import com.github.zhygtx.annotation.Param;
 import com.github.zhygtx.pojo.PluginData;
 
 import java.util.List;
 import java.util.Map;
 
+@MethodClass(description = "提供插件数据的增删改查功能")
 public interface SQLService {
 
-    int insert(String data);
+    @Method(description = "插入单条数据")
+    int insert(@Param(description = "JSON格式的数据") String data);
 
-    int insert(String index,String data);
+    @Method(description = "插入单条数据到指定索引")
+    int insert(@Param(description = "数据索引") String index, 
+               @Param(description = "JSON格式的数据") String data);
 
-    int insert(List<String> data);
+    @Method(description = "批量插入数据")
+    int insert(@Param(description = "JSON数据列表") List<String> data);
 
-    int insert(String index,List<String> data);
+    @Method(description = "批量插入数据到指定索引")
+    int insert(@Param(description = "数据索引") String index, 
+               @Param(description = "JSON数据列表") List<String> data);
 
-    int insert(Map<String, String> data);
+    @Method(description = "按索引映射插入数据")
+    int insert(@Param(description = "索引与数据的映射") Map<String, String> data);
 
-    int insertByIndexMap(Map<String, List<String>> data);
+    @Method(description = "按索引批量插入数据")
+    int insertByIndexMap(@Param(description = "索引与数据列表的映射") Map<String, List<String>> data);
 
+    @Method(description = "删除所有数据")
     int delete();
 
-    int delete(Integer id);
+    @Method(description = "按ID删除数据")
+    int delete(@Param(description = "数据ID") Integer id);
 
-    int delete(String index);
+    @Method(description = "按索引删除数据")
+    int delete(@Param(description = "数据索引") String index);
 
-    int delete(List<String> index);
+    @Method(description = "按索引列表批量删除")
+    int delete(@Param(description = "索引列表") List<String> index);
 
-    int deleteByIds(List<Integer> ids);
+    @Method(description = "按ID列表批量删除")
+    int deleteByIds(@Param(description = "数据ID列表") List<Integer> ids);
 
-    int update(Integer id, String data);
+    @Method(description = "按ID更新数据")
+    int update(@Param(description = "数据ID") Integer id, 
+               @Param(description = "新的JSON数据") String data);
 
-    int update(String index, String data);
+    @Method(description = "按索引更新数据")
+    int update(@Param(description = "数据索引") String index, 
+               @Param(description = "新的JSON数据") String data);
 
+    @Method(description = "查询所有数据")
     List<PluginData> select();
 
-    PluginData select(Integer id);
+    @Method(description = "按ID查询数据")
+    PluginData select(@Param(description = "数据ID") Integer id);
 
-    List<PluginData> select(String index);
+    @Method(description = "按索引查询数据")
+    List<PluginData> select(@Param(description = "数据索引") String index);
 }
