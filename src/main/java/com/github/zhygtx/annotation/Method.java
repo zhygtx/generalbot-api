@@ -15,4 +15,9 @@ public @interface Method {
      * 方法描述
      */
     String description() default "";
+    
+    /**
+     * 方法返回值描述
+     */
+    String returnDescription() default "";
 }

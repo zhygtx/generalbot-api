@@ -11,55 +11,55 @@ import java.util.Map;
 @MethodClass(description = "提供插件数据的增删改查功能")
 public interface SQLService {
 
-    @Method(description = "插入单条数据")
+    @Method(description = "插入单条数据", returnDescription = "插入时影响的数据量")
     int insert(@Param(description = "JSON格式的数据") String data);
 
-    @Method(description = "插入单条数据到指定索引")
+    @Method(description = "插入单条数据到指定索引", returnDescription = "插入时影响的数据量")
     int insert(@Param(description = "数据索引") String index, 
                @Param(description = "JSON格式的数据") String data);
 
-    @Method(description = "批量插入数据")
+    @Method(description = "批量插入数据", returnDescription = "插入时影响数据量")
     int insert(@Param(description = "JSON数据列表") List<String> data);
 
-    @Method(description = "批量插入数据到指定索引")
+    @Method(description = "批量插入数据到指定索引", returnDescription = "插入时影响数据量")
     int insert(@Param(description = "数据索引") String index, 
                @Param(description = "JSON数据列表") List<String> data);
 
-    @Method(description = "按索引映射插入数据")
+    @Method(description = "按索引映射插入数据", returnDescription = "插入时影响数据量")
     int insert(@Param(description = "索引与数据的映射") Map<String, String> data);
 
-    @Method(description = "按索引批量插入数据")
+    @Method(description = "按索引批量插入数据", returnDescription = "插入时影响数据量")
     int insertByIndexMap(@Param(description = "索引与数据列表的映射") Map<String, List<String>> data);
 
-    @Method(description = "删除所有数据")
+    @Method(description = "删除所有数据", returnDescription = "删除时影响数据量")
     int delete();
 
-    @Method(description = "按ID删除数据")
+    @Method(description = "按ID删除数据", returnDescription = "删除时影响数据量")
     int delete(@Param(description = "数据ID") Integer id);
 
-    @Method(description = "按索引删除数据")
+    @Method(description = "按索引删除数据", returnDescription = "删除时影响数据量")
     int delete(@Param(description = "数据索引") String index);
 
-    @Method(description = "按索引列表批量删除")
+    @Method(description = "按索引列表批量删除", returnDescription = "删除时影响数据量")
     int delete(@Param(description = "索引列表") List<String> index);
 
-    @Method(description = "按ID列表批量删除")
+    @Method(description = "按ID列表批量删除", returnDescription = "删除时影响数据量")
     int deleteByIds(@Param(description = "数据ID列表") List<Integer> ids);
 
-    @Method(description = "按ID更新数据")
+    @Method(description = "按ID更新数据", returnDescription = "更新时影响数据量")
     int update(@Param(description = "数据ID") Integer id, 
                @Param(description = "新的JSON数据") String data);
 
-    @Method(description = "按索引更新数据")
+    @Method(description = "按索引更新数据", returnDescription = "更新时影响数据量")
     int update(@Param(description = "数据索引") String index, 
                @Param(description = "新的JSON数据") String data);
 
-    @Method(description = "查询所有数据")
+    @Method(description = "查询所有数据", returnDescription = "查询到的数据列表")
     List<PluginData> select();
 
-    @Method(description = "按ID查询数据")
+    @Method(description = "按ID查询数据", returnDescription = "查询到的数据")
     PluginData select(@Param(description = "数据ID") Integer id);
 
-    @Method(description = "按索引查询数据")
+    @Method(description = "按索引查询数据", returnDescription = "查询到的数据列表")
     List<PluginData> select(@Param(description = "数据索引") String index);
 }
