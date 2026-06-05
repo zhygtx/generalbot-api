@@ -58,7 +58,10 @@ public interface SQLService {
     List<PluginData> select();
 
     @Method(description = "按ID查询数据", returnDescription = "查询到的数据")
-    PluginData select(@Param(description = "数据ID") Integer id);
+    PluginData selectById(@Param(description = "数据ID") Integer id);
+
+    @Method(description = "按索引查询数据", returnDescription = "查询到的数据")
+    PluginData selectByIndex(@Param(description = "数据索引") String index);
 
     @Method(description = "按索引查询数据", returnDescription = "查询到的数据列表")
     List<PluginData> select(@Param(description = "数据索引") String index);
