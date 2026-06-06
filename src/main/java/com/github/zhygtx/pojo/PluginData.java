@@ -30,7 +30,7 @@ public class PluginData {
 
     @TableField("data_index")
     @Attribute(description = "数据索引标识")
-    private String index;
+    private String dataIndex;
 
     @TableField("data")
     @Attribute(description = "JSON格式的数据内容")
