@@ -57,6 +57,9 @@ public interface SQLService {
     int update(@Param(description = "数据索引") String index, 
                @Param(description = "新的JSON数据") String data);
 
+    @Method(description = "批量更新数据（内容包括索引和数据）", returnDescription = "更新时影响数据量")
+    int update(@Param(description = "所需更新的数据") List<PluginData> pluginDataList);
+
     @Method(description = "查询所有数据", returnDescription = "查询到的数据列表")
     List<PluginData> select();
 
