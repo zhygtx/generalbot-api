@@ -1,5 +1,8 @@
 package com.github.zhygtx.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.zhygtx.annotation.Method;
 import com.github.zhygtx.annotation.MethodClass;
 import com.github.zhygtx.annotation.Param;
@@ -65,4 +68,24 @@ public interface SQLService {
 
     @Method(description = "按索引查询数据", returnDescription = "查询到的数据列表")
     List<PluginData> select(@Param(description = "数据索引") String index);
+
+    @Method(description = "使用Wrapper条件查询", returnDescription = "查询到的数据列表")
+    List<PluginData> selectList(@Param(description = "MyBatis-Plus查询条件") Wrapper<PluginData> wrapper);
+
+    @Method(description = "使用Wrapper条件查询单条数据", returnDescription = "查询到的单条数据")
+    PluginData selectOne(@Param(description = "MyBatis-Plus查询条件") Wrapper<PluginData> wrapper);
+
+    @Method(description = "使用Wrapper条件查询数量", returnDescription = "查询到的数量")
+    int selectCount(@Param(description = "MyBatis-Plus查询条件") Wrapper<PluginData> wrapper);
+
+    @Method(description = "分页查询", returnDescription = "分页查询结果")
+    IPage<PluginData> selectPage(@Param(description = "分页参数") Page<PluginData> page, 
+                                 @Param(description = "MyBatis-Plus查询条件") Wrapper<PluginData> wrapper);
+
+    @Method(description = "使用Wrapper条件更新", returnDescription = "更新时影响的数据量")
+    int update(@Param(description = "更新条件") Wrapper<PluginData> wrapper, 
+               @Param(description = "更新内容") PluginData entity);
+
+    @Method(description = "使用Wrapper条件删除", returnDescription = "删除时影响的数据量")
+    int delete(@Param(description = "删除条件") Wrapper<PluginData> wrapper);
 }
