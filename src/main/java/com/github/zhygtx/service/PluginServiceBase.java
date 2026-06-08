@@ -7,11 +7,6 @@ public class PluginServiceBase {
     protected SQLService sqlService;
 
     public PluginServiceBase() {
-        try {
-            Class.forName("org.springframework.context.ApplicationContext");
-            this.sqlService = null;
-        } catch (ClassNotFoundException e) {
-            this.sqlService = new SQLiteSQLServiceImpl();
-        }
+        this.sqlService = new SQLiteSQLServiceImpl();
     }
 }
