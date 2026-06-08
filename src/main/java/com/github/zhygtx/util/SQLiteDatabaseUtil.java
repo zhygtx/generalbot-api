@@ -2,24 +2,17 @@ package com.github.zhygtx.util;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisSqlSessionFactoryBuilder;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.github.zhygtx.mapper.PluginDataMapper;
-import com.github.zhygtx.pojo.PluginData;
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
-import javax.sql.DataSource;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SQLiteDatabaseUtil {
 
@@ -35,21 +28,24 @@ public class SQLiteDatabaseUtil {
         if (sqlSessionFactory == null) {
             try {
                 initDatabase();
-                
-                MybatisConfiguration configuration = new MybatisConfiguration();
+
+                PooledDataSource dataSource = new PooledDataSource();
+                dataSource.setDriver("org.sqlite.JDBC");
+                dataSource.setUrl(JDBC_URL);
+
+                org.apache.ibatis.mapping.Environment environment = new org.apache.ibatis.mapping.Environment(
+                        "development",
+                        new JdbcTransactionFactory(),
+                        dataSource
+                );
+
+                MybatisConfiguration configuration = new MybatisConfiguration(environment);
                 configuration.setMapUnderscoreToCamelCase(true);
                 configuration.addMapper(PluginDataMapper.class);
-                
-                MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-                interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
-                
+
                 MybatisSqlSessionFactoryBuilder builder = new MybatisSqlSessionFactoryBuilder();
                 sqlSessionFactory = builder.build(configuration);
-                
-                try (SqlSession session = sqlSessionFactory.openSession()) {
-                    PluginDataMapper mapper = session.getMapper(PluginDataMapper.class);
-                }
-                
+
             } catch (Exception e) {
                 throw new RuntimeException("Failed to initialize SQLite database", e);
             }
@@ -60,7 +56,7 @@ public class SQLiteDatabaseUtil {
     private static void initDatabase() throws SQLException {
         File dbFile = new File(DB_PATH);
         boolean isNewDb = !dbFile.exists();
-        
+
         try (Connection connection = DriverManager.getConnection(JDBC_URL)) {
             if (isNewDb) {
                 createTables(connection);
@@ -81,7 +77,7 @@ public class SQLiteDatabaseUtil {
                 UNIQUE(data_index)
             );
             """;
-        
+
         try (Statement statement = connection.createStatement()) {
             statement.execute(createTableSQL);
         }
