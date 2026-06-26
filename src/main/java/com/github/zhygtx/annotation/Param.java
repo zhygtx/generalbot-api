@@ -15,4 +15,9 @@ public @interface Param {
      * 参数描述
      */
     String description() default "";
+    
+    /**
+     * 是否可空
+     */
+    boolean nullable() default false;
 }
